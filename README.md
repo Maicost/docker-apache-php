@@ -5,7 +5,6 @@ Table of Contents
  * [Quick Start](#quick-start)
  * [Persistence](#developmentpersistence)
  * [Linked to other container](#linked-to-other-container)
- * [Adding PHP-extension](#adding-php-extension) 
  * [Logging](#logging)
  * [Out of the box](#out-of-the-box)
 
@@ -16,19 +15,12 @@ Installation
  * Pull the latest version of the image.
  
 ```bash
-docker pull romeoz/docker-apache-php
+docker pull maicost/docker-apache-php
 ```
-
-or other versions (7.3, 7.2, 7.1, 7.0, 5.6, 5.5, 5.4 or 5.3):
-
-```bash
-docker pull romeoz/docker-apache-php:7.1
-```
-
 Alternately you can build the image yourself.
 
 ```bash
-git clone https://github.com/romeoz/docker-apache-php.git
+git clone https://github.com/maicost/docker-apache-php.git
 cd docker-apache-php
 docker build -t="$USER/docker-apache-php" .
 ```
@@ -39,9 +31,9 @@ Quick Start
 Run the application container:
 
 ```bash
-docker run --name app -d -p 8080:80 Maicost/docker-apache-php
+docker run --name app -d -p 8080:80 maicost/docker-apache-php
 ```
-sudo docker run --name app -v $HOME/Documentos/Docker/docker-apache-php/7.3/app/:/var/www/app/ -d -p 8080:80 maico/docker-apache-php
+sudo docker run --name app -v $HOME/Documentos/Docker/docker-apache-php/7.3/app/:/var/www/app/ -d -p 8080:80 $USER/docker-apache-php
 
 The simplest way to login to the app container is to use the `docker exec` command to attach a new process to the running container.
 
@@ -84,39 +76,7 @@ docker run --name app -d -p 8080:80 \
   romeoz/docker-apache-php
 ```
 
-Adding PHP-extension
--------------------
-
-You can use one of two choices to install the required php-extensions:
-
-1. `docker exec -it app bash -c 'apt-get update && apt-get install php-mongo && rm -rf /var/lib/apt/lists/*'`
-
-2. Create your container on based the current. Сontents Dockerfile:
-
-```
-FROM romeoz/docker-apache-php:5.6
-
-RUN apt-get update \
-    && apt-get install -y php-mongo \
-    && rm -rf /var/lib/apt/lists/* 
-
-WORKDIR /var/www/app/
-
-EXPOSE 80 443
-
-CMD ["/sbin/entrypoint.sh"]
-```
-
-Next step,
-
-```bash
-docker build -t php-5.6 .
-docker run --name app -d -p 8080:80 php-5.6
-```
-
 >See installed php-extension: `docker exec -it app php -m`
-
->PHP-extension "Mcrypt" was REMOVED in PHP 7.2. Use [Sodium](http://php.net/manual/en/book.sodium.php) or [OpenSSL](http://php.net/manual/en/book.openssl.php)
 
 Logging
 -------------------
@@ -162,9 +122,9 @@ Create the file /etc/logrotate.d/docker-containers with the following text insid
 
 Out of the box
 -------------------
- * Ubuntu 12.04, 14.04, 16.04 or 18.04 LTS
+ * Ubuntu 18.04 LTS
  * Apache 2.4.x/2.2.x
- * PHP 5.3, 5.4, 5.5, 5.6, 7.0, 7.1, 7.2 or 7.3
+ * PHP 7.3
  * Composer (package manager)
 
 >Environment depends on the version of PHP.
