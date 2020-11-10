@@ -33,10 +33,12 @@ Run the application container:
 ```bash
 docker run --name app -d -p 8080:80 maicost/docker-apache-php
 ```
+
 or
+
 ```bash
 sudo docker run --name app -v $HOME/Documentos/Docker/docker-apache-php/7.3/app/:/var/www/app/ -d -p 8080:80 $USER/docker-apache-php
-```bash
+```
 
 The simplest way to login to the app container is to use the `docker exec` command to attach a new process to the running container.
 
